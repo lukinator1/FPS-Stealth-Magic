@@ -41,16 +41,16 @@ void AEnemy::takeDamageOverTime(float damagetaken, float rate, float duration){
     damagetimerdelegate.BindUFunction(this, FName("takeDamage"), damagetaken);
     GetWorld()->GetTimerManager().SetTimer(damagetimerhandle, damagetimerdelegate, (1.0f/rate), true);
     canceldamagetimerdelegate.BindUFunction(this, FName("cancelTakeDamageOverTime"), damagetimerhandle);
-    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "argument3: " + damagetimerhandle.ToString());
+    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "argument3: " + damagetimerhandle.ToString());
     //GetWorld()->GetTimerManager().SetTimer(canceldamagetimerhandle, this, AEnemy::takeDamage(damagetaken), duration, true, 0.0f);
     GetWorld()->GetTimerManager().SetTimer(canceldamagetimerhandle, canceldamagetimerdelegate, duration, false);
     //timermanager.SetTimer(canceldamagetimerhandle, , 5.0f, false, 0.0f);
     setStatusEffect("Cursed");
-    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "canceled" + FString::FromInt(statuseffects["Cursed"]));
+    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "canceled" + FString::FromInt(statuseffects["Cursed"]));
 }
 
 void AEnemy::cancelTakeDamageOverTime(FTimerHandle handle){
-    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "canceled");
+    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "canceled");
     //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "member variable: " + damagetimerhandle.ToString());
     if (statuseffects.Find("Cursed")){
         statuseffects["Cursed"]--;

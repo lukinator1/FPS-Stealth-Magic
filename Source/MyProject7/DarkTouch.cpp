@@ -15,13 +15,13 @@ ADarkTouch::ADarkTouch(){
 
 void ADarkTouch::Cast_Implementation(){
     //Protagonist *caster = (Protagonist *)GetInstigator();
-    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "Darktouch");
-    FVector startloc = camera->GetComponentLocation() + camera->GetComponentRotation().RotateVector(FVector(110.0f, 0.0f, 0.0f));
+    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "Darktouch");
+    FVector startloc = camera->GetComponentLocation() + camera->GetComponentRotation().RotateVector(FVector(40.0f, 0.0f, 0.0f));
     FVector endloc = camera->GetComponentLocation() + camera->GetComponentRotation().RotateVector(FVector(2000.0f, 0.0f, 0.0f));
     FHitResult hitresult;
     UWorld* world;
     world = GetWorld();
-    //DrawDebugLine(world, startloc, endloc, FColor::Green, false, 5.0f, ECC_WorldStatic, 0.75f);
+    DrawDebugLine(world, startloc, endloc, FColor::Green, false, 5.0f, ECC_WorldStatic, 0.75f);
     if (world->LineTraceSingleByChannel(hitresult, startloc, endloc, ECollisionChannel::ECC_GameTraceChannel2)){
     AEnemy *enemy = static_cast<AEnemy*>(hitresult.GetActor());
     //hitresult.GetActor()->K2_DestroyActor();
