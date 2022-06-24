@@ -8,7 +8,10 @@ AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-    
+    projectilemesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("projectilemesh"));
+    projectilemesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+    projectilemovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("projectilemovement"));
+    projectilemovement->SetUpdatedComponent(RootComponent);
 }
 
 // Called when the game starts or when spawned

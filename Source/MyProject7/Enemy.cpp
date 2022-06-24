@@ -18,7 +18,7 @@ void AEnemy::BeginPlay()
 	
 }
 
-void AEnemy::takeDamage(float damagetaken){
+void AEnemy::takeDamage_Implementation(float damagetaken, FVector damageorigin = FVector(0.0f, 0.0f, 0.0f)){
     hp-= damagetaken;
     GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, "health: " + FString::SanitizeFloat(hp) + ", damage taken: " + FString::SanitizeFloat(damagetaken));
     if (hp <= 0){
@@ -62,7 +62,7 @@ void AEnemy::cancelTakeDamageOverTime(FTimerHandle handle){
 }
 
 
-void AEnemy::Die(){
+void AEnemy::Die_Implementation(){
     this->Destroy();
 }
 

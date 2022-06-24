@@ -33,7 +33,7 @@ ABoolet::ABoolet()
     booletcapsule->SetRelativeTransform(trans);
     booletcapsule->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
     
-    projectilemesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("booletmesh"));
+    //projectilemesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("booletmesh"));
     projectilemesh->AttachToComponent(booletcapsule, FAttachmentTransformRules::KeepRelativeTransform);
     static ConstructorHelpers::FObjectFinder<UStaticMesh> boolet(TEXT("/Game/FirstPerson/Meshes/boolet.boolet"));
     projectilemesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -42,7 +42,7 @@ ABoolet::ABoolet()
     transf.SetScale3D(FVector(0.05f, 0.05f, 0.05f));
     projectilemesh->SetWorldTransform(transf);
     
-    projectilemovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("booletmovement"));
+    //projectilemovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("booletmovement"));
     projectilemovement->SetUpdatedComponent(booletcapsule);
     projectilemovement->MaxSpeed = 35000.0f;
     //booletmovement->InitialSpeed = 100.0f;
@@ -61,7 +61,8 @@ void ABoolet::ABooletHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrim
     AEnemy* enemy = Cast<AEnemy>(OtherActor);
     if (enemy != nullptr){
         UE_LOG(LogTemp, Warning, TEXT("Scale: %s"), *therot.ToString());
-        enemy->takeDamage(dmg);
+        FVector vec(GetInstigator()->GetActorLocation());
+        enemy->takeDamage(dmg, vec);
         this->Destroy();
     }
     UE_LOG(LogTemp, Warning, TEXT("POIADSPNAP"));

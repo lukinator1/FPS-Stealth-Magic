@@ -14,7 +14,9 @@ class MYPROJECT7_API AProjectile : public AActor
 	
 public:	
 	// Sets default values for this actor's properties
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Resources")
     UStaticMeshComponent *projectilemesh;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Resources")
     UProjectileMovementComponent *projectilemovement;
 	AProjectile();
 

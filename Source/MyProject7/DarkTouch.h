@@ -11,6 +11,7 @@
 #include "Engine/EngineTypes.h"
 #include "Math/Vector.h"
 #include "Math/Rotator.h"
+#include "TimerManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
 #include "DarkTouch.generated.h"
@@ -27,5 +28,8 @@ class MYPROJECT7_API ADarkTouch : public ASpell
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stats")
     UCameraComponent* camera;
+    UMaterial* darktouchmaterial;
+    UFUNCTION(BlueprintCallable, Category="Stats")
+    void removeDarkTouchMaterial(AEnemy* enemy, UMaterial* originalenemymaterial);
     void Cast_Implementation();
 };

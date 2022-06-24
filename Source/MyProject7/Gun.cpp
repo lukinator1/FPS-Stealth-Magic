@@ -13,5 +13,5 @@ AGun::AGun(){
     weaponattacksound = gunattacksoundasset.Object;
     windup = 0.0f;
     cooldown = .375f;
-    dmg = 20.0f; 
+    dmg = 300.0f; 
 }

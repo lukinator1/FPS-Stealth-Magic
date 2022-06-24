@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Sound/SoundCue.h"
+#include "Math/Vector.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
@@ -23,9 +24,12 @@ public:
 	AEnemy();
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stats")
     float hp;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stats")
+    UMaterialInterface* baseenemymaterial;
     //UBoxComponent enemymeleehitbox;
-    UFUNCTION(BlueprintCallable, Category="Stats")
-    void takeDamage(float damagetaken);
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Stats")
+    void takeDamage(float damagetaken, FVector damageorigin = FVector(0.0f, 0.0f, 0.0f));
+    virtual void takeDamage_Implementation(float damagetaken, FVector damageorigin);
     UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category="Stats")
     void Attack();
     UFUNCTION(BlueprintCallable, Category="Stats")
@@ -34,8 +38,9 @@ public:
     void setStatusEffect(FString statuseffect);
     UFUNCTION(BlueprintCallable, Category="Stats")
     void cancelTakeDamageOverTime(FTimerHandle canceldamagetimerhandle);
-    UFUNCTION(BlueprintCallable, Category="Stats")
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Stats")
     void Die();
+    virtual void Die_Implementation();
     UFUNCTION(BlueprintCallable, Category="Stats")
     void Alert();
     TMap<FString, int> statuseffects;

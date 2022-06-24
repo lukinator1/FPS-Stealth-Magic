@@ -9,8 +9,16 @@ ADarkTouch::ADarkTouch(){
     spellanimation = darktouchanimationasset.Object;
     static ConstructorHelpers::FObjectFinder<USoundWave> spellcastsoundasset(TEXT("SoundWave'/Game/Blueprints/darktouchsound__1_.darktouchsound__1_'"));
     spellcastsound = spellcastsoundasset.Object;
+    static ConstructorHelpers::FObjectFinder<UMaterial> materialasset (TEXT("Material'/Game/DarktouchMaterial.DarktouchMaterial'"));
+    darktouchmaterial = materialasset.Object;
     windup = .15f;
-    cooldown = .35f;
+    cooldown = 1.5f;
+}
+
+void ADarkTouch::removeDarkTouchMaterial(AEnemy* enemy, UMaterial* originalenemymaterial){
+    if (enemy){
+        enemy->GetMesh()->SetMaterial(0, originalenemymaterial);
+    }
 }
 
 void ADarkTouch::Cast_Implementation(){
@@ -21,11 +29,17 @@ void ADarkTouch::Cast_Implementation(){
     FHitResult hitresult;
     UWorld* world;
     world = GetWorld();
-    DrawDebugLine(world, startloc, endloc, FColor::Green, false, 5.0f, ECC_WorldStatic, 0.75f);
+    //DrawDebugLine(world, startloc, endloc, FColor::Green, false, 5.0f, ECC_WorldStatic, 0.75f);
     if (world->LineTraceSingleByChannel(hitresult, startloc, endloc, ECollisionChannel::ECC_GameTraceChannel2)){
     AEnemy *enemy = static_cast<AEnemy*>(hitresult.GetActor());
     //hitresult.GetActor()->K2_DestroyActor();
+        UMaterialInterface* originalenemymaterial = enemy->GetMesh()->GetMaterial(0);
+        enemy->GetMesh()->SetMaterial(0, darktouchmaterial);
         enemy->takeDamageOverTime(dmg, 1.33f, 5.0f);
+        FTimerDelegate darktouchtimerdelegate;
+        FTimerHandle darktouchtimerhandle;
+        darktouchtimerdelegate.BindUFunction(this, FName("removeDarkTouchMaterial"), enemy, originalenemymaterial);
+        GetWorld()->GetTimerManager().SetTimer(darktouchtimerhandle, darktouchtimerdelegate, 5.0f, false);
         //FTimerManager timermanager;
         //FTimerHandle timerhandle;
         //timermanager.SetTimer(timerhandle, , 5.0f, false, 0.0f);
