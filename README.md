@@ -1,0 +1,1 @@
+structuring a first person stealth game that would involve a magician that casts various spells (think of like in the game Dishonored, except the character can only use his spells instead of his weapons/items)
